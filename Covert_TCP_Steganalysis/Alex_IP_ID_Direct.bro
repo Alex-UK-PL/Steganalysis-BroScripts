@@ -9,9 +9,11 @@
 
 
 ##Impr: we could use event Steg_IPID_tcpCovert (c : connection , packet etc)
-##IMPr : AM I fine with the event and log OR do I have to alter/redel notices ?
+##IMPr : AM I fine with the event and log OR do I have to alter/ redef notices ?
 # check what is the UID in c$id$resp_p (protocol) 
-#connid and cuid is different thig - conn is the flow of connection after init.
+#connid and cuid is different thing - conn is the flow of connection after init.
+#TEST : Connection_SYN_packet
+
 
 module Steg_IPID_tcpCovert;
 #why the heck i still need to do packet level analysis 
@@ -37,6 +39,8 @@ event bro_init()
 
 event connection_state_remove(c: connection)
 {
+  #can not optimize with connection_rejected as this may be evaded with simple Covert_tcp source code changes
+
  testConState="other";
   if (c$conn$conn_state == "REJ")  
   {
@@ -48,7 +52,7 @@ event connection_state_remove(c: connection)
 event new_packet(c: connection, p: pkt_hdr)
 {
   #the below line will give error if packet is not IP like ARP
-  #not having effect on analysis #is ascii() fnction? instead of <=128 && 
+  #not having effect on analysis #is ascii() function? instead of <=128 && 
  local testIPID=p$ip$id/256; 
  if (testIPID<= 128  && testConState=="REJ" && c$history == "") 
   {
@@ -73,7 +77,7 @@ event new_packet(c: connection, p: pkt_hdr)
 #invoke the new script with packet level analysis or
 #OR
 #invoke next event !!!
-#or do it via fnction and then invoke function and event-detect_MHR.bro
+#or do it via function and then invoke function and event-detect_MHR.bro
 # i could go global x for pkt header and then
 #invoke covert_optimal - but this will miss the point
 #of not processing every packet

@@ -7,11 +7,14 @@
 ## and other Covert TCP characteristics to determine
 ## if the packet may carry hidden message using SEQ numbers.
 
+## PROBLEM : A use of tcp_packet is useless due to relative seq nr calculate by BRO IDS
+## TO DO: optimal via tcp_packet event however keep the original TCP SEQ value !
+
 
 ##Impr: we could use event Steg_IPID_tcpCovert (c : connection , packet etc)
 # check what is the UID in c$id$resp_p (protocol) 
-#con state rem is later so the REJ==true is executed on next packet not neceser. stego packet.
-#connid and cuid is different thig - conn is the flow of connection after init.
+#con state rem is later so the REJ==true is executed on next packet not necessary . stego packet.
+#connid and cuid is different thing - conn is the flow of connection after init.
 module Steg_IPSEQ_tcpCovert;
 
 export {
@@ -34,6 +37,8 @@ event bro_init()
 
  event connection_state_remove(c: connection)
 {
+  #can not optimize with connection_rejected 
+  #as this may be evaded with simple Covert_tcp source code changes
  testConState="other";
  # testConID="";
  if (c$conn$conn_state == "REJ")  
@@ -45,15 +50,15 @@ event bro_init()
 
 
 
-
 # ?$ record field existence !
 event new_packet(c: connection, p: pkt_hdr)
 {
-  #the tcp_packet not sure if will handle the seqence nr properly !
+
+  #the tcp_packet not sure if will handle the sequence nr properly !
   # if (testConState=="REJ1st") testConState=="REJ";
   #if (REJ_count==0) testConState=="REJ";
   #the below line will give error if packet is not IP/tcp like ARP
-  #not having effect on analysis&& c$history == ""
+  #not having effect on analysis && c$history == ""
   local testIPSEQ =0;
   if (testConState=="REJ") testIPSEQ= p$tcp$seq/16777216;
 
@@ -78,17 +83,10 @@ event new_packet(c: connection, p: pkt_hdr)
 #invoke the new script with packet level analysis or
 #OR
 #invoke next event !!!
-#or do it via fnction and then invoke function and event-detect_MHR.bro
+#or do it via function and then invoke function and event-detect_MHR.bro
 # i could go global x for pkt header and then
 #invoke covert_optimal - but this will miss the point
 #of not processing every packet
-# conn state _remove//connection rejected
-#event connection_state_remove( c: connection)
-#{
- #if (c$conn$conn_state == "REJ")
- # print"test hurra";
  #global cstat = c$conn$conn_state;
- #   covert_tcp_optimal();
-
   #i need to return F or T if function
-  #the tcp_packet instead of new_packet still too expensive
+  #the tcp_packet instead of new_packet still too expensive and problems with relative SEQ nr
