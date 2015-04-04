@@ -49,7 +49,7 @@ event bro_init()
 event connection_state_remove(c: connection)
 {
   #can not optimize with connection_rejected as this may be evaded with simple Covert_tcp source code changes
-
+##NOT SURE IF PASSING THIS VARAIBLE IS DONE CORRECTLY! -CHECK
  testConState="other";
   if (c$conn$conn_state == "REJ")  
   {
@@ -60,11 +60,10 @@ event connection_state_remove(c: connection)
 
 event new_packet(c: connection, p: pkt_hdr)
 {
-  #the below line will give error if packet is not IP like ARP
-  #not having effect on analysis #is ascii() function? instead of <=128 && 
+  #not having effect on analysis : #is there any  ascii() function? instead of <=128 && >0  
  local testIPID=0;
- if ((is_tcp_port(c$id$resp_p) || is_tcp_port(c$id$orig_p)) ) testIPID=p$ip$id/256; 
-  if (testIPID<= 128 && testIPID > 0 && testConState=="REJ" && c$history == "")
+ if (is_tcp_port(c$id$resp_p) || is_tcp_port(c$id$orig_p)) testIPID=p$ip$id/256; 
+  if (testConState=="REJ" && testIPID<= 128 && testIPID > 0 && c$history == "")
   {
   ##CONSOLE OUTPUT##
     print fmt("MEans hex ASCII: %s ",testIPID );

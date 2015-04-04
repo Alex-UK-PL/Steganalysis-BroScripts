@@ -53,15 +53,12 @@ event bro_init()
 }
 
 
-
-# ?$ record field existence !
 event new_packet(c: connection, p: pkt_hdr)
 {
 
-  #the tcp_packet not sure if will handle the sequence nr properly !
   # if (testConState=="REJ1st") testConState=="REJ";
   #if (REJ_count==0) testConState=="REJ";
-  #the below line will give error if packet is not IP/tcp like ARP
+
   #not having effect on analysis && c$history == ""
   local testIPSEQ =0;
   if ( (is_tcp_port(c$id$resp_p) || is_tcp_port(c$id$orig_p)) && testConState=="REJ") testIPSEQ= p$tcp$seq/16777216;
@@ -97,4 +94,3 @@ event new_packet(c: connection, p: pkt_hdr)
 #of not processing every packet
  #global cstat = c$conn$conn_state;
   #i need to return F or T if function
-  #the tcp_packet instead of new_packet still too expensive and problems with relative SEQ nr
