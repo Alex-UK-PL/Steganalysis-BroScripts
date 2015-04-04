@@ -1,12 +1,16 @@
-## .......bro
-## Version : 0.4
+## TCP_StegDetect.bro
+## Version : 0.42
 ## Author : Alexander Drabek, drabek.a@o2.pl
 ## https://github.com/Alex-UK-PL/Steganalysis-BroScripts
-## Upon firing of each packet event this script
-## will check if the connection is in REJ state
-## and other Covert TCP characteristics to determine
-## if the packet may carry hidden message using SEQ numbers.
-
+## 
+## !CAUTION! The packet level analysis is performed!    !CAUTION!
+## !CAUTION! Author is not responsible losses which,    !CAUTION!
+## !CAUTION!  are caused by using provided script.      !CAUTION! 
+## !CAUTION! This script may result in false positives! !CAUTION!
+## 
+## This script analyses for any signs of usage of Covert_tcp(SEQ method)
+## This include :
+##
 ## PROBLEM : A use of tcp_packet is useless due to relative seq nr calculate by BRO IDS
 ## TO DO: optimal via tcp_packet event however keep the original TCP SEQ value !
 
@@ -60,15 +64,19 @@ event new_packet(c: connection, p: pkt_hdr)
   #the below line will give error if packet is not IP/tcp like ARP
   #not having effect on analysis && c$history == ""
   local testIPSEQ =0;
-  if (testConState=="REJ") testIPSEQ= p$tcp$seq/16777216;
+  if ( (is_tcp_port(c$id$resp_p) || is_tcp_port(c$id$orig_p)) && testConState=="REJ") testIPSEQ= p$tcp$seq/16777216;
 
  if (testIPSEQ<= 128  && testIPSEQ > 0)
   {
+
+  ##CONSOLE OUTPUT## 
    print fmt("MEans hex ASCII: %s ",testIPSEQ );
    ++REJ_count;
    print testConState;
    print c$uid;
    print REJ_count;
+  ##END OF CONSOLE OUTPUT##
+
    local mes1 = [$ts = network_time(),$UID_val=c$uid , $IPSEQ_val = p$tcp$seq,$ASCII_code=testIPSEQ ];
    Log::write(LOG, mes1);  
    }                 

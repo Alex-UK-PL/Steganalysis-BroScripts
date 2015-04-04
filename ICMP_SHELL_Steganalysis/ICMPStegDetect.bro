@@ -3,7 +3,15 @@
 ## Author : Alexander Drabek, drabek.a@o2.pl
 ## https://github.com/Alex-UK-PL/Steganalysis-BroScripts
 ## 
+## !CAUTION! The packet level analysis is performed!    !CAUTION!
+## !CAUTION! Author is not responsible losses which,    !CAUTION!
+## !CAUTION!  are caused by using provided script.      !CAUTION! 
+## !CAUTION! This script may result in false positives! !CAUTION!
 ##
+
+##ONLY ALG which resulted in false positives when tested with 4 ICMP conn
+## possibility of another program utilizing ICMP .....CHECK!
+
 module Steg_ICMP_SHELLv02;
 
 

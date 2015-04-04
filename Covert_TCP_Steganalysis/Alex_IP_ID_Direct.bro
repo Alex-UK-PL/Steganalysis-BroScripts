@@ -1,11 +1,20 @@
-## ........bro
-## Version : 0.4
-## Author : Alexander Drabek, drabek.a@o2.pl
+## IPID_StegDetect.bro
+## Version: 0.42
+## Author: Alexander Drabek, drabek.a@o2.pl
 ## https://github.com/Alex-UK-PL/Steganalysis-BroScripts
-## Upon firing of each packet event this script
-## will check if the connection is in REJ state
-## and other Covert TCP characteristics to determine
-## if the packet may carry hidden message.
+## 
+## !CAUTION! The packet level analysis is performed!    !CAUTION!
+## !CAUTION! Author is not responsible losses which,    !CAUTION!
+## !CAUTION!  are caused by using provided script.      !CAUTION! 
+## !CAUTION! This script may result in false positives! !CAUTION!
+## 
+## This script analyses for any signs of usage of Covert_tcp(IPID method)
+## This include :
+## -Checking if the Connection is rejected
+## -Checking & (Decoding to ASCII) value of IP ID 
+## 
+## A usage of Covert_tcp means concealment of information and its transmission. 
+## 
 
 
 ##Impr: we could use event Steg_IPID_tcpCovert (c : connection , packet etc)
@@ -53,14 +62,17 @@ event new_packet(c: connection, p: pkt_hdr)
 {
   #the below line will give error if packet is not IP like ARP
   #not having effect on analysis #is ascii() function? instead of <=128 && 
- local testIPID=p$ip$id/256; 
- if (testIPID<= 128  && testConState=="REJ" && c$history == "") 
+ local testIPID=0;
+ if ((is_tcp_port(c$id$resp_p) || is_tcp_port(c$id$orig_p)) ) testIPID=p$ip$id/256; 
+  if (testIPID<= 128 && testIPID > 0 && testConState=="REJ" && c$history == "")
   {
+  ##CONSOLE OUTPUT##
     print fmt("MEans hex ASCII: %s ",testIPID );
     ++REJ_count;
     print testConState;
     print c$uid;
     print REJ_count;
+  ##END OF CONSOLE OUTPUT##
     local mes1 = [$ts = network_time(),$UID_val=c$uid , $IPID_val = p$ip$id,$ASCII_code=testIPID ];
     Log::write(LOG, mes1);  
     }                 
