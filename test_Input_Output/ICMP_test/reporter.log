@@ -1,0 +1,10 @@
+#separator \x09
+#set_separator	,
+#empty_field	(empty)
+#unset_field	-
+#path	reporter
+#open	2015-03-26-00-14-55
+#fields	ts	level	message	location
+#types	time	enum	string	string
+1426955518.951690	Reporter::ERROR	no such index (Steg_ICMP_SHELLv02::Payload_CON_Table[Steg_ICMP_SHELLv02::p$ip$len])	./ICMPStegDetect.bro, line 37
+#close	2015-03-26-00-14-55

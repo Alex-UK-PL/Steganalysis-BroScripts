@@ -1,0 +1,10 @@
+#separator \x09
+#set_separator	,
+#empty_field	(empty)
+#unset_field	-
+#path	steg__i_cmp__s
+#open	2015-03-26-00-14-55
+#fields	ts	Connection_UID_value	Sample_IP_Payload_Lenght
+#types	time	string	count
+1426955597.265255	CZgcCx1hpTSscfbWY5	84
+#close	2015-03-26-00-14-55

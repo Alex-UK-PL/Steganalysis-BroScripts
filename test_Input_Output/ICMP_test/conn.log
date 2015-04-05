@@ -1,0 +1,10 @@
+#separator \x09
+#set_separator	,
+#empty_field	(empty)
+#unset_field	-
+#path	conn
+#open	2015-03-26-00-14-55
+#fields	ts	uid	id.orig_h	id.orig_p	id.resp_h	id.resp_p	proto	service	duration	orig_bytes	resp_bytes	conn_state	local_orig	missed_bytes	history	orig_pkts	orig_ip_bytes	resp_pkts	resp_ip_bytes	tunnel_parents
+#types	time	string	addr	port	addr	port	enum	string	interval	count	count	string	bool	count	string	count	count	count	count	set[string]
+1426955518.951690	CZgcCx1hpTSscfbWY5	192.168.3.3	8	192.168.3.5	0	icmp	-	78.313565	7280	7280	OTH	-	0	-	130	10920	130	10920	(empty)
+#close	2015-03-26-00-14-55
