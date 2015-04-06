@@ -66,7 +66,11 @@ event new_packet(c: connection, p: pkt_hdr)
   if (testConState=="REJ" && testIPID<= 128 && testIPID > 0 && c$history == "")
   {
   ##CONSOLE OUTPUT##
-    print fmt("MEans hex ASCII: %s ",testIPID );
+    print fmt("ASCII code: %s ",testIPID );
+      #\x65 will give 'e' as this is hex to ascii
+      #local Hexik =hexdump(testIPID);Error - I need int to string first
+      #print Hexik;
+      #print fmt("\x%s",Hexik); Error - the variables conversion not working 
     ++REJ_count;
     print testConState;
     print c$uid;

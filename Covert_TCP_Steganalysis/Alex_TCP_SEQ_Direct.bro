@@ -67,7 +67,7 @@ event new_packet(c: connection, p: pkt_hdr)
   {
 
   ##CONSOLE OUTPUT## 
-   print fmt("MEans hex ASCII: %s ",testIPSEQ );
+   print fmt("ASCII code: %s",testIPSEQ );
    ++REJ_count;
    print testConState;
    print c$uid;
