@@ -14,11 +14,12 @@
 ## PROBLEM : A use of tcp_packet is useless due to relative seq nr calculate by BRO IDS
 ## TO DO: optimal via tcp_packet event however keep the original TCP SEQ value !
 
-
 ##Impr: we could use event Steg_IPID_tcpCovert (c : connection , packet etc)
 # check what is the UID in c$id$resp_p (protocol) 
 #con state rem is later so the REJ==true is executed on next packet not necessary . stego packet.
 #connid and cuid is different thing - conn is the flow of connection after init.
+
+#@load base/frameworks/logging - displays warnings - above commented lines 
 module Steg_IPSEQ_tcpCovert;
 
 export {

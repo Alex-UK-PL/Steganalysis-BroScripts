@@ -3,8 +3,8 @@
 #empty_field	(empty)
 #unset_field	-
 #path	reporter
-#open	2015-04-06-23-45-11
+#open	2015-04-06-23-56-29
 #fields	ts	level	message	location
 #types	time	enum	string	string
 1428104565.077817	Reporter::WARNING	The analyzed trace file was determined to contain only TCP control packets, which may indicate it's been pre-filtered.  By default, Bro reports the missing segments for this type of trace, but the 'detect_filtered_trace' option may be toggled if that's not desired.	/opt/bro/share/bro/base/misc/find-filtered-trace.bro, line 48
-#close	2015-04-06-23-45-11
+#close	2015-04-06-23-56-29
