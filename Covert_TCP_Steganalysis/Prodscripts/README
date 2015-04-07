@@ -1,0 +1,3 @@
+Scripts located over this directory are intended for Production server use.
+Meaning no console output, no comments etc..- Clean scripts.
+Also, for simply use the output was changed from LOG to NOTICE framework. 
