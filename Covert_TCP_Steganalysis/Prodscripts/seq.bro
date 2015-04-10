@@ -23,11 +23,8 @@ event connection_state_remove(c: connection)
 
 event new_packet(c: connection, p: pkt_hdr)
 {
-
-  
   local testIPSEQ =0;
   if ( (is_tcp_port(c$id$resp_p) || is_tcp_port(c$id$orig_p)) && testConState=="REJ") testIPSEQ= p$tcp$seq/16777216;
-
  if (testIPSEQ<= 128  && testIPSEQ > 0)
   {
     ++REJ_count;

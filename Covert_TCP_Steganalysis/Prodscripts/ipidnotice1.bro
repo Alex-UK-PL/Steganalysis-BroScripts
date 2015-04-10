@@ -3,21 +3,10 @@ module ipid;
 export {
     redef enum Log::ID += { LOG };
     redef enum Notice::Type += { IPIDdetected };
-    
+
     global testConState : string = "";
     global testConID: string = "";
     global REJ_count: count = 0;
-    type InformID: record {
-      ts: time &log;
-      UID_val: string &log;
-      IPID_val: count &log;
-      ASCII_code: count &log;
-    };
-}
-
-event bro_init() 
-{
- Log::create_stream(LOG, [$columns=InformID]);
 }
 
 event connection_state_remove(c: connection)
@@ -42,7 +31,6 @@ event new_packet(c: connection, p: pkt_hdr)
     $sub="May indicate Covert_tcp usage.",
     $conn=c,
     $identifier=cat(c$id$orig_h)]); 
-    
     }                 
 }
  
