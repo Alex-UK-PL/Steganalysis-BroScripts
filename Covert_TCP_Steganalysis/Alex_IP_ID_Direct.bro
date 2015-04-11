@@ -16,12 +16,8 @@
 ## A usage of Covert_tcp means concealment of information and its transmission. 
 ## 
 ##Impr: we could use event Steg_IPID_tcpCovert (c : connection , packet etc)
-##IMPr : AM I fine with the event and log OR do I have to alter/ redef notices ?
 # check what is the UID in c$id$resp_p (protocol) 
 #connid and cuid is different thing - conn is the flow of connection after init.
-#TEST : Connection_SYN_packet
-#why the heck i still need to do packet level analysis 
-#if this is IP IP it should be visible on a CON level. v.05?!
 
 #@load base/frameworks/logging - displays warnings - above commented lines 
 

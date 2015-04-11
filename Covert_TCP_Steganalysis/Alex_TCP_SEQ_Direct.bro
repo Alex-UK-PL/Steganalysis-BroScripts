@@ -66,15 +66,13 @@ event new_packet(c: connection, p: pkt_hdr)
 
  if (testIPSEQ<= 128  && testIPSEQ > 0)
   {
-
+   ++REJ_count;
   ##CONSOLE OUTPUT## 
    print fmt("ASCII code: %s",testIPSEQ );
-   ++REJ_count;
    print testConState;
    print c$uid;
    print REJ_count;
   ##END OF CONSOLE OUTPUT##
-
    local mes1 = [$ts = network_time(),$UID_val=c$uid , $IPSEQ_val = p$tcp$seq,$ASCII_code=testIPSEQ ];
    Log::write(LOG, mes1);  
    }                 
