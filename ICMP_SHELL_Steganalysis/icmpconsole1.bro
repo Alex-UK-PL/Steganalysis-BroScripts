@@ -1,3 +1,14 @@
+## ICMPStegDetect.bro
+## Version : 0.6
+## Author : Alexander Drabek, drabek.a@o2.pl
+## https://github.com/Alex-UK-PL/Steganalysis-BroScripts
+## 
+## !CAUTION! The packet level analysis is performed!    !CAUTION!
+## !CAUTION! Author is not responsible losses which,    !CAUTION!
+## !CAUTION!  are caused by using provided script.      !CAUTION! 
+## !CAUTION! This script may result in false positives! !CAUTION!
+##
+
 module stegicmp;
 
  
