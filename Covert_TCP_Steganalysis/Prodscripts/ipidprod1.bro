@@ -18,7 +18,7 @@ event new_packet(c: connection, p: pkt_hdr)
  local testIPID=0;
  if (is_tcp_port(c$id$resp_p) || is_tcp_port(c$id$orig_p)) testIPID=p$ip$id/256; 
 
- if (testConState=="REJ" && testIPID<= 128 && testIPID > 0 && c$history == "")
+ if (testConState=="REJ" && testIPID < 128 && testIPID >= 0 && c$history == "")
   {
     ++REJ_count;
     NOTICE([$note=IPIDdetected, 
