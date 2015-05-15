@@ -1,5 +1,5 @@
 ## TCP_StegDetect.bro
-## Version : 0.42
+## Version : 0.43
 ## Author : Alexander Drabek, drabek.a@o2.pl
 ## https://github.com/Alex-UK-PL/Steganalysis-BroScripts
 ## 
@@ -62,9 +62,9 @@ event new_packet(c: connection, p: pkt_hdr)
 
   #not having effect on analysis && c$history == ""
   local testIPSEQ =0;
-  if ( (is_tcp_port(c$id$resp_p) || is_tcp_port(c$id$orig_p)) && testConState=="REJ") testIPSEQ= p$tcp$seq/16777216;
+  if ( (is_tcp_port(c$id$resp_p) || is_tcp_port(c$id$orig_p)) && testConState=="REJ" && c$history == "" ) testIPSEQ= p$tcp$seq/16777216;
 
- if (testIPSEQ<= 128  && testIPSEQ > 0)
+ if (testIPSEQ < 128  && testIPSEQ >= 0 )
   {
    ++REJ_count;
   ##CONSOLE OUTPUT## 
