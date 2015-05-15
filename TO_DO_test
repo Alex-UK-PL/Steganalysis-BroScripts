@@ -1,0 +1,6 @@
+A list of thoughts :
+- conn state remove ? 
+either last packet(REJ) to analyze either 1st (c$history)
+what if c&History REJ? - do we need to apply some other processing like ISN -1 ?
+
+
