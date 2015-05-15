@@ -1,5 +1,5 @@
 ## IPID_StegDetect.bro
-## Version: 0.42
+## Version: 0.43
 ## Author: Alexander Drabek, drabek.a@o2.pl
 ## https://github.com/Alex-UK-PL/Steganalysis-BroScripts
 ## 
@@ -59,7 +59,7 @@ event new_packet(c: connection, p: pkt_hdr)
   #not having effect on analysis : #is there any  ascii() function? instead of <=128 && >0  
  local testIPID=0;
  if (is_tcp_port(c$id$resp_p) || is_tcp_port(c$id$orig_p)) testIPID=p$ip$id/256; 
-  if (testConState=="REJ" && testIPID<= 128 && testIPID > 0 && c$history == "")
+  if (testConState=="REJ" && testIPID < 128 && testIPID >= 0 && c$history == "")
   {
   ##CONSOLE OUTPUT##
     print fmt("ASCII code: %s ",testIPID );
